@@ -1,0 +1,28 @@
+package dados;
+
+public class Cliente extends Pessoa {
+    private String endereco;
+
+    public Cliente(String nome, String documento, String telefone, String email, String endereco) {
+        super(nome, documento, telefone, email);
+        this.endereco = endereco;
+    }
+
+    @Override
+    public String getTipo() {
+        return "Cliente";
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " - Endereço: " + endereco;
+    }
+}
