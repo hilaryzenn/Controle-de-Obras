@@ -1,0 +1,143 @@
+package dados;
+
+import java.util.ArrayList;
+
+// Classe que representa uma obra
+public class Obra implements Gerenciavel, Calculavel {
+    private String descricao;
+    private String endereco;
+    private String dataInicio;
+    private int prazo;
+    private double orcamentoInicial;
+    private Cliente cliente;
+    private ArrayList<Material> materiais;
+    private ArrayList<Funcionario> funcionarios;
+
+    public Obra(String descricao, String endereco, String dataInicio, int prazo, double orcamentoInicial, Cliente cliente) {
+        this.descricao = descricao;
+        this.endereco = endereco;
+        this.dataInicio = dataInicio;
+        this.prazo = prazo;
+        this.orcamentoInicial = orcamentoInicial;
+        this.cliente = cliente;
+        this.materiais = new ArrayList<>();
+        this.funcionarios = new ArrayList<>();
+    }
+
+    public void adicionarMaterial(Material material, int quantidade) {
+        // Adiciona um material à lista de materiais da obra
+        material.setQuantidadeEstoque(quantidade);
+        materiais.add(material);
+    }
+
+    public void adicionarFuncionario(Funcionario funcionario) {
+        funcionarios.add(funcionario);
+    }
+
+    @Override
+    public double calcularValorTotal() {
+        return calcularCustoMaterial() + calcularCustoMaoDeObra();
+    }
+
+    @Override
+    public double calcularCustoMaoDeObra() {
+        double totalMaoDeObra = 0;
+        for (Funcionario funcionario : funcionarios) {
+            totalMaoDeObra += funcionario.getSalario();
+        }
+        return totalMaoDeObra;
+    }
+
+    @Override
+    public double calcularCustoMaterial() {
+        double totalMaterial = 0;
+        for (Material material : materiais) {
+            totalMaterial += material.getPrecoUnitario() * material.getQuantidadeEstoque();
+        }
+        return totalMaterial;
+    }
+
+    @Override
+    public void cadastrar() {
+        System.out.println("Obra cadastrada: " + descricao);
+    }
+
+    @Override
+    public void atualizar() {
+        System.out.println("Obra atualizada: " + descricao);
+    }
+
+    @Override
+    public void excluir() {
+        System.out.println("Obra excluída: " + descricao);
+    }
+
+    @Override
+    public String exibirDetalhes() {
+        return "Obra: " + descricao + "\nEndereço: " + endereco + "\nData de Início: " + dataInicio +
+                "\nPrazo: " + prazo + " dias\nOrçamento Inicial: R$ " + orcamentoInicial +
+                "\nCliente: " + cliente.getNome();
+    }
+
+    // Getters e Setters
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public int getPrazo() {
+        return prazo;
+    }
+
+    public void setPrazo(int prazo) {
+        this.prazo = prazo;
+    }
+
+    public double getOrcamentoInicial() {
+        return orcamentoInicial;
+    }
+
+    public void setOrcamentoInicial(double orcamentoInicial) {
+        this.orcamentoInicial = orcamentoInicial;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public ArrayList<Material> getMateriais() {
+        return materiais;
+    }
+
+    public ArrayList<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    @Override
+    public String toString() {
+        return descricao + " - Cliente: " + cliente.getNome() + " - Início: " + dataInicio + " - Prazo: " + prazo + " dias";
+    }
+}
