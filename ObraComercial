@@ -1,0 +1,48 @@
+package dados;
+
+public class ObraComercial extends Obra {
+    private double area;
+    private String tipoEstabelecimento;
+
+    public ObraComercial(String descricao, String endereco, String dataInicio, int prazo, double orcamentoInicial,
+                         Cliente cliente, double area, String tipoEstabelecimento) {
+        super(descricao, endereco, dataInicio, prazo, orcamentoInicial, cliente);
+        this.area = area;
+        this.tipoEstabelecimento = tipoEstabelecimento;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    public String getTipoEstabelecimento() {
+        return tipoEstabelecimento;
+    }
+
+    public void setTipoEstabelecimento(String tipoEstabelecimento) {
+        this.tipoEstabelecimento = tipoEstabelecimento;
+    }
+
+    @Override
+    public double calcularCustoMaoDeObra() {
+        // Polimorfismo: cálculo específico para obras comerciais
+        double custoBase = super.calcularCustoMaoDeObra();
+        return custoBase + (area * 200);
+    }
+
+    @Override
+    public String exibirDetalhes() {
+        return super.exibirDetalhes() + "\nTipo: Comercial" +
+                "\nÁrea: " + area + " m²" +
+                "\nTipo de Estabelecimento: " + tipoEstabelecimento;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " - Tipo: Comercial - Área: " + area + " m² - Estabelecimento: " + tipoEstabelecimento;
+    }
+}
