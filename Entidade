@@ -1,0 +1,8 @@
+package dados;
+
+public interface Entidade {
+    int getId();
+    void setId(int id);
+    String getDescricao();
+    void setDescricao(String descricao);
+}
