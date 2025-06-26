@@ -1,0 +1,88 @@
+package dados;
+
+public abstract class Fornecedor extends Pessoa {
+    private String nome;
+    private String cnpj;
+    private String telefone;
+    private String email;
+    private String endereco;
+    private String categoria;
+
+    public Fornecedor(String nome, String documento, String telefone, String email, String nome1, String cnpj, String telefone1, String email1, String endereco, String categoria) {
+        super(nome, documento, telefone, email);
+        this.nome = nome1;
+        this.cnpj = cnpj;
+        this.telefone = telefone1;
+        this.email = email1;
+        this.endereco = endereco;
+        this.categoria = categoria;
+    }
+
+    @Override
+    public String getNome() {
+        return nome;
+    }
+
+    @Override
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    @Override
+    public String getTelefone() {
+        return telefone;
+    }
+
+    @Override
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Fornecedor{" +
+                "nome='" + nome + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", categoria='" + categoria + '\'' +
+                '}';
+    }
+}
+
+
