@@ -1,0 +1,136 @@
+package dados;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Orcamento implements Entidade {
+    private int id;
+    private String descricao;
+    private Obra obra;
+    private String data;
+    private double valorTotal;
+    private String status; // Pendente, Aprovado, Rejeitado
+    private ArrayList<ItemOrcamento> itens;
+
+    public Orcamento(String descricao, Obra obra, String data) {
+        this.descricao = descricao;
+        this.obra = obra;
+        this.data = data;
+        this.valorTotal = 0.0;
+        this.status = "Pendente";
+        this.itens = new ArrayList<>();
+    }
+
+    public void adicionarItem(Material material, int quantidade) {
+        ItemOrcamento item = new ItemOrcamento(material, quantidade);
+        itens.add(item);
+        calcularValorTotal();
+    }
+
+    public void removerItem(int index) {
+        if (index >= 0 && index < itens.size()) {
+            itens.remove(index);
+            calcularValorTotal();
+        }
+    }
+
+    private void calcularValorTotal() {
+        valorTotal = 0.0;
+        for (ItemOrcamento item : itens) {
+            valorTotal += item.getSubtotal();
+        }
+    }
+
+    // Getters e Setters
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getDescricao() {
+        return descricao;
+    }
+
+    @Override
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Obra getObra() {
+        return obra;
+    }
+
+    public void setObra(Obra obra) {
+        this.obra = obra;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public ArrayList<ItemOrcamento> getItens() {
+        return itens;
+    }
+
+    @Override
+    public String toString() {
+        return descricao + " - Obra: " + obra.getDescricao() + " - Valor: R$ " + valorTotal + " - Status: " + status;
+    }
+
+    // Classe interna para representar itens do orçamento
+    public class ItemOrcamento {
+        private Material material;
+        private int quantidade;
+        private double subtotal;
+
+        public ItemOrcamento(Material material, int quantidade) {
+            this.material = material;
+            this.quantidade = quantidade;
+            this.subtotal = material.getPrecoUnitario() * quantidade;
+        }
+
+        public Material getMaterial() {
+            return material;
+        }
+
+        public int getQuantidade() {
+            return quantidade;
+        }
+
+        public void setQuantidade(int quantidade) {
+            this.quantidade = quantidade;
+            this.subtotal = material.getPrecoUnitario() * quantidade;
+        }
+
+        public double getSubtotal() {
+            return subtotal;
+        }
+
+        @Override
+        public String toString() {
+            return material.getDescricao() + " - " + quantidade + " " + material.getUnidade() + " - R$ " + subtotal;
+        }
+    }
+}
