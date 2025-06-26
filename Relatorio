@@ -1,0 +1,55 @@
+package dados;
+
+import java.util.ArrayList;
+
+public class  {
+    private ArrayList<Obra> obras;
+    private ArrayList<Orcamento> orcamentos;
+    private ArrayList<OrdemServico> ordensServico;
+
+    public Relatorio(ArrayList<Obra> obras, ArrayList<Orcamento> orcamentos, ArrayList<OrdemServico> ordensServico) {
+        this.obras = obras;
+        this.orcamentos = orcamentos;
+        this.ordensServico = ordensServico;
+    }
+
+    public void gerarRelatorioObras() {
+        System.out.println("\n===== RELATÓRIO DE OBRAS =====");
+        if (obras.isEmpty()) {
+            System.out.println("Não há obras cadastradas.");
+            return;
+        }
+        for (Obra obra : obras) {
+            System.out.println(obra);
+        }
+    }
+
+    public void gerarRelatorioOrcamentos() {
+        System.out.println("\n===== RELATÓRIO DE ORÇAMENTOS =====");
+        if (orcamentos.isEmpty()) {
+            System.out.println("Não há orçamentos cadastrados.");
+            return;
+        }
+        for (Orcamento orcamento : orcamentos) {
+            System.out.println(orcamento);
+        }
+    }
+
+    public void gerarRelatorioOrdensServico() {
+        System.out.println("\n===== RELATÓRIO DE ORDENS DE SERVIÇO =====");
+        if (ordensServico.isEmpty()) {
+            System.out.println("Não há ordens de serviço cadastradas.");
+            return;
+        }
+        for (OrdemServico ordemServico : ordensServico) {
+            System.out.println(ordemServico);
+        }
+    }
+
+    public void gerarRelatorioCompleto() {
+        System.out.println("\n===== RELATÓRIO COMPLETO =====");
+        gerarRelatorioObras();
+        gerarRelatorioOrcamentos();
+        gerarRelatorioOrdensServico();
+    }
+}
