@@ -1,0 +1,48 @@
+package dados;
+
+public class ObraResidencial extends Obra {
+    private int numQuartos;
+    private int numBanheiros;
+
+    public ObraResidencial(String descricao, String endereco, String dataInicio, int prazo, double orcamentoInicial,
+                           Cliente cliente, int numQuartos, int numBanheiros) {
+        super(descricao, endereco, dataInicio, prazo, orcamentoInicial, cliente);
+        this.numQuartos = numQuartos;
+        this.numBanheiros = numBanheiros;
+    }
+
+    public int getNumQuartos() {
+        return numQuartos;
+    }
+
+    public void setNumQuartos(int numQuartos) {
+        this.numQuartos = numQuartos;
+    }
+
+    public int getNumBanheiros() {
+        return numBanheiros;
+    }
+
+    public void setNumBanheiros(int numBanheiros) {
+        this.numBanheiros = numBanheiros;
+    }
+
+    @Override
+    public double calcularCustoMaoDeObra() {
+        // Polimorfismo: cálculo específico para obras residenciais
+        double custoBase = super.calcularCustoMaoDeObra();
+        return custoBase + (numQuartos * 1000) + (numBanheiros * 2000);
+    }
+
+    @Override
+    public String exibirDetalhes() {
+        return super.exibirDetalhes() + "\nTipo: Residencial" +
+                "\nNúmero de Quartos: " + numQuartos +
+                "\nNúmero de Banheiros: " + numBanheiros;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " - Tipo: Residencial - Quartos: " + numQuartos + " - Banheiros: " + numBanheiros;
+    }
+}
