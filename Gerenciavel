@@ -1,0 +1,8 @@
+package dados;
+
+public interface Gerenciavel {
+    public void cadastrar();
+    public void atualizar();
+    public void excluir();
+    public String exibirDetalhes();
+}
