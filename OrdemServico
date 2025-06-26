@@ -1,0 +1,136 @@
+package dados;
+
+import java.util.ArrayList;
+
+// Classe OrdemServico implementa a interface Entidade
+public class OrdemServico implements Entidade {
+    private int id;
+    private String descricao;
+    private Obra obra;
+    private String dataEmissao;
+    private String dataPrevistaConclusao;
+    private String status; // Pendente, Em andamento, Concluída, Cancelada
+    private ArrayList<Funcionario> funcionariosAlocados;
+    private ArrayList<ItemOrdemServico> materiais;
+
+    public OrdemServico(String descricao, Obra obra, String dataEmissao, String dataPrevistaConclusao) {
+        this.descricao = descricao;
+        this.obra = obra;
+        this.dataEmissao = dataEmissao;
+        this.dataPrevistaConclusao = dataPrevistaConclusao;
+        this.status = "Pendente";
+        this.funcionariosAlocados = new ArrayList<>();
+        this.materiais = new ArrayList<>();
+    }
+
+    public void adicionarFuncionario(Funcionario funcionario) {
+        funcionariosAlocados.add(funcionario);
+    }
+
+    public void removerFuncionario(int index) {
+        if (index >= 0 && index < funcionariosAlocados.size()) {
+            funcionariosAlocados.remove(index);
+        }
+    }
+
+    public void adicionarMaterial(Material material, int quantidade) {
+        ItemOrdemServico item = new ItemOrdemServico(material, quantidade);
+        materiais.add(item);
+    }
+
+    public void removerMaterial(int index) {
+        if (index >= 0 && index < materiais.size()) {
+            materiais.remove(index);
+        }
+    }
+
+    // Getters e Setters
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getDescricao() {
+        return descricao;
+    }
+
+    @Override
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Obra getObra() {
+        return obra;
+    }
+
+    public void setObra(Obra obra) {
+        this.obra = obra;
+    }
+
+    public String getDataEmissao() {
+        return dataEmissao;
+    }
+
+    public void setDataEmissao(String dataEmissao) {
+        this.dataEmissao = dataEmissao;
+    }
+
+    public String getDataPrevistaConclusao() {
+        return dataPrevistaConclusao;
+    }
+
+    public void setDataPrevistaConclusao(String dataPrevistaConclusao) {
+        this.dataPrevistaConclusao = dataPrevistaConclusao;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public ArrayList<Funcionario> getFuncionariosAlocados() {
+        return funcionariosAlocados;
+    }
+
+    public ArrayList<ItemOrdemServico> getMateriais() {
+        return materiais;
+    }
+
+    @Override
+    public String toString() {
+        return descricao + " - Obra: " + obra.getDescricao() + " - Status: " + status;
+    }
+
+    // Classe interna para representar itens da ordem de serviço
+    public class ItemOrdemServico {
+        private Material material;
+        private int quantidade;
+
+        public ItemOrdemServico(Material material, int quantidade) {
+            this.material = material;
+            this.quantidade = quantidade;
+        }
+
+        public Material getMaterial() {
+            return material;
+        }
+
+        public int getQuantidade() {
+            return quantidade;
+        }
+
+        @Override
+        public String toString() {
+            return material.getDescricao() + " - " + quantidade + " " + material.getUnidade();
+        }
+    }
+}
