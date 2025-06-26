@@ -1,0 +1,39 @@
+package dados;
+
+public class MestreObras extends Funcionario {
+    private int anosExperiencia;
+    private String certificacoes;
+
+    public MestreObras(String nome, String cpf, String telefone, String email, double salario, int anosExperiencia, String certificacoes) {
+        super(nome, cpf, telefone, email, salario);
+        this.anosExperiencia = anosExperiencia;
+        this.certificacoes = certificacoes;
+    }
+
+    @Override
+    public String getTipo() {
+        return "Mestre de Obras";
+    }
+
+    public int getAnosExperiencia() {
+        return anosExperiencia;
+    }
+
+    public void setAnosExperiencia(int anosExperiencia) {
+        this.anosExperiencia = anosExperiencia;
+    }
+
+    public String getCertificacoes() {
+        return certificacoes;
+    }
+
+    public void setCertificacoes(String certificacoes) {
+        this.certificacoes = certificacoes;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " - Experiência: " + anosExperiencia + " anos - Certificações: " + certificacoes;
+    }
+}
+
