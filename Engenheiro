@@ -1,0 +1,38 @@
+package dados;
+
+public class Engenheiro extends Funcionario {
+    private String crea;
+    private String especialidade;
+
+    public Engenheiro(String nome, String cpf, String telefone, String email, double salario, String crea, String especialidade) {
+        super(nome, cpf, telefone, email, salario);
+        this.crea = crea;
+        this.especialidade = especialidade;
+    }
+
+    @Override
+    public String getTipo() {
+        return "Engenheiro";
+    }
+
+    public String getCrea() {
+        return crea;
+    }
+
+    public void setCrea(String crea) {
+        this.crea = crea;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " - CREA: " + crea + " - Especialidade: " + especialidade;
+    }
+}
