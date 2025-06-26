@@ -1,0 +1,339 @@
+package dados;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+    private static ArrayList<Obra> obras = new ArrayList<>();
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+    private static ArrayList<Funcionario> funcionarios = new ArrayList<>();
+    private static ArrayList<Material> materiais = new ArrayList<>();
+    private static ArrayList<Fornecedor> fornecedores = new ArrayList<>();
+    private static ArrayList<Orcamento> orcamentos = new ArrayList<>();
+    private static ArrayList<OrdemServico> ordensServico = new ArrayList<>();
+
+    public static void main(String[] args) {
+        boolean sair = false;
+
+        while (!sair) {
+            System.out.println("\n===== SISTEMA DE CONTROLE DE OBRAS =====");
+            System.out.println("1. Gerenciar Obras");
+            System.out.println("2. Gerenciar Clientes");
+            System.out.println("3. Gerenciar Funcionários");
+            System.out.println("4. Gerenciar Materiais");
+            System.out.println("5. Gerenciar Fornecedores");
+            System.out.println("6. Gerenciar Orçamentos");
+            System.out.println("7. Gerenciar Ordens de Serviço");
+            System.out.println("8. Gerenciar Pagamentos");
+            System.out.println("9. Gerenciar Relatórios");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+
+            switch (opcao) {
+                case 1:
+                    menuObras();
+                    break;
+                case 2:
+                    menuClientes();
+                    break;
+                case 3:
+                    menuFuncionarios();
+                    break;
+                case 4:
+                    menuMateriais();
+                    break;
+                case 5:
+                    menuFornecedores();
+                    break;
+                case 6:
+                    menuOrcamentos();
+                    break;
+                case 7:
+                    menuOrdensServico();
+                    break;
+                case 8:
+                    menuPagamentos();
+                    break;
+                case 9:
+                    menuRelatorios();
+                    break;
+                case 0:
+                    sair = true;
+                    System.out.println("Sistema encerrado.");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    // Métodos para gerenciar obras
+    private static void menuObras() {
+        boolean voltar = false;
+
+        while (!voltar) {
+            System.out.println("\n===== GERENCIAR OBRAS =====");
+            System.out.println("1. Listar Obras");
+            System.out.println("2. Adicionar Nova Obra");
+            System.out.println("3. Editar Obra");
+            System.out.println("4. Excluir Obra");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+
+            switch (opcao) {
+                case 1:
+                    listarObras();
+                    break;
+                case 2:
+                    adicionarObra();
+                    break;
+                case 3:
+                    editarObra();
+                    break;
+                case 4:
+                    excluirObra();
+                    break;
+                case 0:
+                    voltar = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    private static void listarObras() {
+        if (obras.isEmpty()) {
+            System.out.println("Não há obras cadastradas.");
+            return;
+        }
+
+        System.out.println("\n===== LISTA DE OBRAS =====");
+        for (int i = 0; i < obras.size(); i++) {
+            System.out.println((i + 1) + ". " + obras.get(i));
+        }
+    }
+
+    private static void adicionarObra() {
+        if (clientes.isEmpty()) {
+            System.out.println("Não há clientes cadastrados. Cadastre um cliente primeiro.");
+            return;
+        }
+
+        System.out.println("\n===== ADICIONAR NOVA OBRA =====");
+
+        System.out.println("Selecione o cliente:");
+        for (int i = 0; i < clientes.size(); i++) {
+            System.out.println((i + 1) + ". " + clientes.get(i).getNome());
+        }
+
+        int clienteIndex = scanner.nextInt() - 1;
+        scanner.nextLine(); // Limpar o buffer
+
+        if (clienteIndex < 0 || clienteIndex >= clientes.size()) {
+            System.out.println("Cliente inválido.");
+            return;
+        }
+
+        Cliente cliente = clientes.get(clienteIndex);
+
+        System.out.print("Descrição da obra: ");
+        String descricao = scanner.nextLine();
+
+        System.out.print("Endereço: ");
+        String endereco = scanner.nextLine();
+
+        System.out.print("Tipo de obra (1 - Residencial, 2 - Comercial): ");
+        int tipoObra = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer
+
+        System.out.print("Data de início (dd/mm/aaaa): ");
+        String dataInicio = scanner.nextLine();
+
+        System.out.print("Prazo em dias: ");
+        int prazo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer
+
+        System.out.print("Orçamento inicial: R$ ");
+        double orcamentoInicial = scanner.nextDouble();
+        scanner.nextLine(); // Limpar o buffer
+
+        Obra obra;
+        if (tipoObra == 1) {
+            System.out.print("Número de quartos: ");
+            int numQuartos = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+
+            System.out.print("Número de banheiros: ");
+            int numBanheiros = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+
+            obra = new ObraResidencial(descricao, endereco, dataInicio, prazo, orcamentoInicial, cliente, numQuartos, numBanheiros);
+        } else {
+            System.out.print("Área em m²: ");
+            double area = scanner.nextDouble();
+            scanner.nextLine(); // Limpar o buffer
+
+            System.out.print("Tipo de estabelecimento: ");
+            String tipoEstabelecimento = scanner.nextLine();
+
+            obra = new ObraComercial(descricao, endereco, dataInicio, prazo, orcamentoInicial, cliente, area, tipoEstabelecimento);
+        }
+
+        obras.add(obra);
+        System.out.println("Obra adicionada com sucesso!");
+    }
+
+    private static void editarObra() {
+        // Método para editar obra - implementação omitida para brevidade
+    }
+
+    private static void excluirObra() {
+        // Método para excluir obra - implementação omitida para brevidade
+    }
+
+    // Métodos para gerenciar clientes
+    private static void menuClientes() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void listarClientes() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void adicionarCliente() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void editarCliente() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void excluirCliente() {
+        // Implementação omitida para brevidade
+    }
+
+    // Métodos para gerenciar funcionários
+    private static void menuFuncionarios() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void listarFuncionarios() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void adicionarFuncionario() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void editarFuncionario() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void excluirFuncionario() {
+        // Implementação omitida para brevidade
+    }
+
+    // Métodos para gerenciar materiais
+    private static void menuMateriais() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void listarMateriais() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void adicionarMaterial() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void editarMaterial() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void excluirMaterial() {
+        // Implementação omitida para brevidade
+    }
+
+    // Métodos para gerenciar fornecedores
+    private static void menuFornecedores() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void listarFornecedores() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void adicionarFornecedor() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void editarFornecedor() {
+        // Implementação omitida para brevidade
+    }
+
+    private static void excluirFornecedor() {
+        // Implementação omitida para brevidade
+    }
+
+    // Métodos para gerenciar orçamentos
+    private static void menuOrcamentos() {
+        // Implementação omitida para brevidade
+    }
+
+    // Métodos para gerenciar ordens de serviço
+    private static void menuOrdensServico() {
+        // Implementação omitida para brevidade
+    }
+
+    // Métodos para gerenciar pagamentos
+    private static void menuPagamentos() {
+        // Implementação omitida para brevidade
+    }
+
+    // Métodos para gerenciar relatórios
+    private static void menuRelatorios() {
+        Relatorio relatorio = new Relatorio(obras, orcamentos, ordensServico);
+        boolean voltar = false;
+
+        while (!voltar) {
+            System.out.println("\n===== GERENCIAR RELATÓRIOS =====");
+            System.out.println("1. Relatório de Obras");
+            System.out.println("2. Relatório de Orçamentos");
+            System.out.println("3. Relatório de Ordens de Serviço");
+            System.out.println("4. Relatório Completo");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha uma opção: ");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+
+            switch (opcao) {
+                case 1:
+                    relatorio.gerarRelatorioObras();
+                    break;
+                case 2:
+                    relatorio.gerarRelatorioOrcamentos();
+                    break;
+                case 3:
+                    relatorio.gerarRelatorioOrdensServico();
+                    break;
+                case 4:
+                    relatorio.gerarRelatorioCompleto();
+                    break;
+                case 0:
+                    voltar = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+}
