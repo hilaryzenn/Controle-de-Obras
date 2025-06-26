@@ -1,0 +1,66 @@
+package dados;
+
+public class Material implements Entidade {
+    private int id;
+    private String descricao;
+    private String unidade;
+    private double precoUnitario;
+    private int quantidadeEstoque;
+
+    public Material(String descricao, String unidade, double precoUnitario, int quantidadeEstoque) {
+        this.descricao = descricao;
+        this.unidade = unidade;
+        this.precoUnitario = precoUnitario;
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    // Getters e Setters
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getDescricao() {
+        return descricao;
+    }
+
+    @Override
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
+    }
+
+    public double getPrecoUnitario() {
+        return precoUnitario;
+    }
+
+    public void setPrecoUnitario(double precoUnitario) {
+        this.precoUnitario = precoUnitario;
+    }
+
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    @Override
+    public String toString() {
+        return descricao + " - " + unidade + " - R$ " + precoUnitario + " - Estoque: " + quantidadeEstoque;
+    }
+}
