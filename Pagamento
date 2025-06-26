@@ -1,0 +1,22 @@
+package dados;
+
+public abstract class Pagamento {
+    protected double valor;
+    protected String dataPagamento;
+
+    public Pagamento(double valor, String dataPagamento) {
+        this.valor = valor;
+        this.dataPagamento = dataPagamento;
+    }
+
+    public abstract void processarPagamento();
+
+    public double getValor() {
+        return valor;
+    }
+
+    public String getDataPagamento() {
+        return dataPagamento;
+    }
+}
+
